@@ -1,20 +1,19 @@
 ---
 date: 2017-01-15
-title: Layouts
-video_id: Gc2d-eGSSdQ
-description: Use Jekyll layouts to reduce repetition on your site
+title: Getting Started With P5.js
+video_id: _iH8f5alzWA
+description: Have non-technical people update Jekyll sites
 categories:
-  - Three.js
+  - p5.js
 resources:
-  - name: "Layout documentation"
-    link: https://jekyllrb.com/docs/frontmatter/
-  - name: "Source code"
-    link: https://github.com/CloudCannon/bakery-store/tree/layouts
+  - name: Source code
+    link: https://github.com/CloudCannon/creative-jekyll-theme/
+  - name: CloudCannon
+    link: https://cloudcannon.com
 type: Video
 set: getting-started
-set_order: 5
+set_order: 1
 ---
-
 Many people don’t use Jekyll for client projects as non-developers would traditionally have to learn HTML, Markdown and Liquid to update content. In this tutorial, we give non-developers an easy way to update Jekyll sites with [CloudCannon](https://cloudcannon.com).
 
 ## What is CloudCannon?

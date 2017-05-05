@@ -1,10 +1,10 @@
 ---
 date: 2017-01-15
-title: Introduction to collections
+title: p5.js Functions
 video_id: o7ygmIRgvUA
 description: Learn how to use collections to manage and organize related content
 categories:
-  - Three.js
+  - p5.js
 resources:
   - name: "Explain like I'm five: Jekyll collections"
     link: http://ben.balter.com/2015/02/20/jekyll-collections/

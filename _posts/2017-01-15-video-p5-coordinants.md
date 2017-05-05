@@ -1,19 +1,20 @@
 ---
 date: 2017-01-15
-title: Client editable Jekyll sites
-video_id: _iH8f5alzWA
-description: Have non-technical people update Jekyll sites
+title: p5.js Coordinants
+video_id: Gc2d-eGSSdQ
+description: Use Jekyll layouts to reduce repetition on your site
 categories:
   - p5.js
 resources:
-  - name: Source code
-    link: https://github.com/CloudCannon/creative-jekyll-theme/
-  - name: CloudCannon
-    link: https://cloudcannon.com
+  - name: "Layout documentation"
+    link: https://jekyllrb.com/docs/frontmatter/
+  - name: "Source code"
+    link: https://github.com/CloudCannon/bakery-store/tree/layouts
 type: Video
 set: getting-started
-set_order: 1
+set_order: 5
 ---
+
 Many people don’t use Jekyll for client projects as non-developers would traditionally have to learn HTML, Markdown and Liquid to update content. In this tutorial, we give non-developers an easy way to update Jekyll sites with [CloudCannon](https://cloudcannon.com).
 
 ## What is CloudCannon?

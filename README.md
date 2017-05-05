@@ -1,3 +1,3 @@
-Documentation for CMAC Laser Cutter
+A Static Site for CMAC Tutorials
 
 ![Alt text](tutorials.png?raw=true "Optional Title")

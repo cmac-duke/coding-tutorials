@@ -1,6 +1,6 @@
 ---
 date: 2017-01-16
-title: Subscription payments
+title: Hello Worlds
 categories:
   - Rails
 description: How subscription payments work.

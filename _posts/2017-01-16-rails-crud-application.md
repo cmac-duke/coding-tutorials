@@ -6,56 +6,41 @@ categories:
 description: Jekyll template for an event.
 type: Document
 ---
-Jekyll is a simple, blog-aware, static site generator. It takes a template directory containing raw text files in various formats, runs it through a converter (like Markdown) and our Liquid renderer, and spits out a complete, ready-to-publish static website suitable for serving with your favorite web server.
 
-If you already have a full Ruby development environment with all headers and RubyGems installed, you can create a new Jekyll site by doing the following:
+ **C**reate <br>
+ **R**ead <br>
+ **U**pdate <br>
+ **D**elete <br>
 
-## How to install
 
-~~~ bash
-# Install Jekyll and Bundler gems through RubyGems
-~ $ gem install jekyll bundler
+CRUD is the basic foundation to any dynamic web application. Regarless of how complex the application is, where the application is getting its data from, or what kind of data is flowing through the application, any web based application is a CRUD (Create Read Update Delete) application. 
 
-# Create a new Jekyll site at ./myblog
-~ $ jekyll new myblog
+Crud applications can be as complex or simple as one wants, however, when you hear of CRUD applications in the context of web development, it typically means a relatively simple application.
 
-# Change into your new directory
-~ $ cd myblog
+Creating basic CRUD applications are very straightforward thanks to Rails and Active Record. 
 
-# Build the site on the preview server
-~/myblog $ bundle exec jekyll serve
+This tutorial assumes that you have ruby and rails installed on your machine, and have a basic understanding of what a webapp is. To learn more about the programming language Ruby, or the Ruby on Rails framework, please In this tutorial, we will be creating a CRUD application with SQLite (https://www.sqlite.org/), however, there a just a few extra steps to creating a production application with MySQL or Postgres. (for differences between databases, refer here: )
 
-# Now browse to http://localhost:4000
-~~~
+The first step is to create the application itself. We will start by opening up terminal, running the rails setup command
 
-## Next steps
+## Setting up the Appliction
 
-Building a Jekyll site with the default theme is just the first step. The real magic happens when you start creating blog posts, using the front matter to control templates and layouts, and taking advantage of all the awesome configuration options Jekyll makes available.
+```
+rails new [Name of your app] 
+```
 
-## Basic usage
+where [Name of your app] is the name you would like to give your application and database for instance, I'll run 
 
-The Jekyll gem makes a `jekyll` executable available to you in your Terminal window. You can use this command in a number of ways:
+```
+rails new Testapp
+```
 
-~~~ bash
-$ jekyll build
-# => The current folder will be generated into ./_site
+you should see a long output like the one pictured below
 
-$ jekyll build --destination <destination>
-# => The current folder will be generated into <destination>
 
-$ jekyll build --source <source> --destination <destination>
-# => The <source> folder will be generated into <destination>
+In the output, we see a long list of "gems". The Ruby on Rails framework is really just a compilation of packages, or "gems". Gems are essentially bits of code, written by a community of developer, that help us create applications quickly. 
 
-$ jekyll build --watch
-# => The current folder will be generated into ./_site,
-#    watched for changes, and regenerated automatically.
-~~~
-
-## Directory structure
-
-Jekyll is, at its core, a text transformation engine. The concept behind the system is this: you give it text written in your favorite markup language, be that Markdown, Textile, or just plain HTML, and it churns that through a layout or a series of layout files. Throughout that process you can tweak how you want the site URLs to look, what data gets displayed in the layout, and more. This is all done through editing text files; the static web site is the final product.
-
-A basic Jekyll site usually looks something like this:
+Every web application framework has some sort of package or gem-like system. Could you imagine if everyone had to create a user login system, or file upload system, or database connection system from scratch? That would be a lot of time waisted on problems that other people had already solved. Gems allow developers to share snippets of code common to most web applications, are destribute them for everyone to use. If you look at the list of gems that were downloaded to our package, we can see that there is a sqlite gem for making connection to or database, theres's a sass gem to handle our stylesheets, and "turbolinks" gem to make our application run smoother and faster. You can open up the GEMFILE to see what other gems have been included in our initial setup
 
 ~~~ bash
 .
@@ -82,26 +67,82 @@ A basic Jekyll site usually looks something like this:
 └── index.html # can also be an 'index.md' with valid YAML Frontmatter
 ~~~
 
-## Front matter
+## Bundling our Gems
 
-The front matter is where Jekyll starts to get really cool. Any file that contains a YAML front matter block will be processed by Jekyll as a special file. The front matter must be the first thing in the file and must take the form of valid YAML set between triple-dashed lines. Here is a basic example:
+Next we'll want to run 'bundle install' to install these gems into our application. The 'bundle' command take all of our gems, and keeps a record of them. 'Install' downloads them and installs them into our application. 
 
-~~~ html
----
-layout: post
-title: Blogging Like a Hacker
----
-~~~
 
-Between these triple-dashed lines, you can set predefined variables (see below for a reference) or even create custom ones of your own. These variables will then be available to you to access using Liquid tags both further down in the file and also in any layouts or includes that the page or post in question relies on.
+```
+bundle install
+```
+You can remember the bundle command because gems come in bundles? idk. 
 
-![Example image](https://images.unsplash.com/photo-1481487196290-c152efe083f5?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1920&h=1080&fit=crop&s=80308172730757a7db0434987fa985f3)
+## Creating the database
 
-## Where additional pages live
+Next, well create the database. To do so, we'll run 
+```
+rake db:create
+```
 
-Where you put HTML or Markdown files for pages depends on how you want the pages to work. There are two main ways of creating pages:
+you can think of "rake" here, as an equivalent to "make" for Rails. 
 
-* Place named HTML or Markdown files for each page in your site’s root folder.
-* Place pages inside folders and subfolders named whatever you want.
+## Running the application
 
-Both methods work fine (and can be used in conjunction with each other), with the only real difference being the resulting URLs. By default, pages retain the same folder structure in `_site` as they do in the source directory.
+We now have a database that is waiting to take in information from our rails application. 
+
+Lets check out our application to make sure everything is working correctly. We'll run 'rails server' to stand it up.
+
+```
+rails server
+```
+
+Go to Chrome or whatever web browser you use and type 'localhost:3000'
+
+You should see your application at this address.
+
+## Scaffolding A CRUD Application
+
+Next, lets have a look at how we can create our **CRUD** application. For this application, lets create a blog. For our Blog, we'll want to be able to create an entry (create), show it on a page (update), change it if it need corrections (update) and delete it (delete). 
+
+Rails makes it extremely easy to create a CRUD application. Lets say our blog has two parts, Title - the title of the blog, and Body- the blog entry. 
+
+We'll run
+
+```
+rails generate scaffold blog title:string body:string
+```
+
+Here we're telling rails to generate a scaffold (a general structure for our app) for a blog model where the title is a string and the body is a string. 
+
+What is a model? A model is a representation of concept in our app that maps to a table in our database. 
+
+## Migrating What We've made
+
+Our next step is to migrate the database. What is a migration? Migrations keep track of the state of our database. For the type of database that we're working with (Relational Database) its very important to keep track of the state of the database and how the tables interact with eachother. Relational Databases deserve a tutorial of thie own, but for now we can this of a migration as a record of the tables that we have created.
+
+Let's run our migration with
+
+```
+rake db:migrate
+```
+
+If we were to run this command, and look at our database, we would see that we would have a table call Blog with two columns, one for the title of each blog post and one for the body of each blog post
+
+| title                 | body                                                                             |   |   |   |
+|-----------------------|----------------------------------------------------------------------------------|---|---|---|
+| Today was a great day | Today was awesome, because I had ice cream and played with my dog and didn't cry |   |   |   |
+| Today sucks           | My professor assigned 300 pages of Foucault                    |   |   |   |
+|                       |                                                                                  |   |   |   |  
+
+Obviously it would start out empty, but now its time to fill it with blog posts!
+
+Let's run 
+
+```
+rails server 
+```
+
+again to see our app, and this time lets point our application to "localhost:3000/blog"
+
+You should see a page similar to this:
+

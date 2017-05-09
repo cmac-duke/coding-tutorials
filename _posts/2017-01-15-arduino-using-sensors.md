@@ -1,13 +1,18 @@
 ---
 date: 2017-01-15
-title: Intro To Github
-video_id: t3yEhIAOeg8
-description: Introduction to the world of static site generators
-type: Video
+title: Using Sensors
+video_id: _iH8f5alzWA
+description: Have non-technical people update Jekyll sites
 categories:
-  - Github
+  - Arduino
+resources:
+  - name: Source code
+    link: https://github.com/CloudCannon/creative-jekyll-theme/
+  - name: CloudCannon
+    link: https://cloudcannon.com
+type: Video
 set: getting-started
-set_order: 6
+set_order: 1
 ---
 Many people don’t use Jekyll for client projects as non-developers would traditionally have to learn HTML, Markdown and Liquid to update content. In this tutorial, we give non-developers an easy way to update Jekyll sites with [CloudCannon](https://cloudcannon.com).
 

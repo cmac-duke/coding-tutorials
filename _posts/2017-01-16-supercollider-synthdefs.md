@@ -6,102 +6,38 @@ categories:
 description: "Deploy your Jekyll site to Azure"
 type: Document
 ---
-Jekyll is a simple, blog-aware, static site generator. It takes a template directory containing raw text files in various formats, runs it through a converter (like Markdown) and our Liquid renderer, and spits out a complete, ready-to-publish static website suitable for serving with your favorite web server.
+SynthDefs in supercollider are an essential part of organizing the sounds you create. You can think of them as instruments, or 'synths', that can be reused, and communication with other sections of your compositions to create patterns of sound. When you're first starting out writing supercollider code, it is tempting to continue to pile on UGens into a long string. To this point, we have been creating sounds with a single line of code like this one:
 
-If you already have a full Ruby development environment with all headers and RubyGems installed, you can create a new Jekyll site by doing the following:
+```
+{Pan2.ar(FreeVerb.ar(SinOsc.ar(400)*LFTri.kr(20), 0.3, 0.8), 0)}.play;
+```
 
-## How to install
+Quickly your code will get out of hand. Moreover, you'll have to set your pile of UGens to a variable to be able to use them throughout your code. Lastly, the sound created above is not at all flexible, since the vaibles for each UGen are hard coded into the sound. SynthDefs are essental to both organization and structure, and create flexable instruments that can then be used throughout your code. I will walk you through each apect of the SynthDef, and how it solves each of the problems listed above.
 
-~~~ bash
-# Install Jekyll and Bundler gems through RubyGems
-~ $ gem install jekyll bundler
 
-# Create a new Jekyll site at ./myblog
-~ $ jekyll new myblog
+```
+SynthDef(\mysound, { |freq=400, mod=20, mix= 0.3, room=0.8, pan=0, amp=1, out=0|
+    var src;
+    src = SinOsc.ar(freq);
+    src =  src * LFTri.kr(mod);
+    src = FreeVerb.ar(src, mix, room);
+    src = Pan2.ar(src, pan);
+    Out.ar(out, src*amp);
+});
+```
 
-# Change into your new directory
-~ $ cd myblog
+You might think: but the writing this sound like a SynthDef is so much more typing!!
 
-# Build the site on the preview server
-~/myblog $ bundle exec jekyll serve
+This is true, but the work that you put in to crafting your sythdefs on the front end makes up for hours of headache and confusion on the backend.
 
-# Now browse to http://localhost:4000
-~~~
+First, we'll look at the SynthDefs structure:
 
-## Next steps
+As you can see, the synthdef makes sense structurally. Each UGen has its own line, and each line is folded into the line above it. src=FreeVerb.ar() is fit into src Pan2.ar below it. 
 
-Building a Jekyll site with the default theme is just the first step. The real magic happens when you start creating blog posts, using the front matter to control templates and layouts, and taking advantage of all the awesome configuration options Jekyll makes available.
+Next, the SynthDefs flexibility. As stated, the first instument that we created has hard coded numbers. This means that if we want to change the 'freq', mod', 'pan' or the 'room', well have to copy the entire sounds, and rewrite the numbers accordingly.
 
-## Basic usage
+With a SynthDef, instead of copying over the entire string of UGens to change, say, the 'freq', we can just say
 
-The Jekyll gem makes a `jekyll` executable available to you in your Terminal window. You can use this command in a number of ways:
-
-~~~ bash
-$ jekyll build
-# => The current folder will be generated into ./_site
-
-$ jekyll build --destination <destination>
-# => The current folder will be generated into <destination>
-
-$ jekyll build --source <source> --destination <destination>
-# => The <source> folder will be generated into <destination>
-
-$ jekyll build --watch
-# => The current folder will be generated into ./_site,
-#    watched for changes, and regenerated automatically.
-~~~
-
-## Directory structure
-
-Jekyll is, at its core, a text transformation engine. The concept behind the system is this: you give it text written in your favorite markup language, be that Markdown, Textile, or just plain HTML, and it churns that through a layout or a series of layout files. Throughout that process you can tweak how you want the site URLs to look, what data gets displayed in the layout, and more. This is all done through editing text files; the static web site is the final product.
-
-A basic Jekyll site usually looks something like this:
-
-~~~ bash
-.
-├── _config.yml
-├── _data
-|   └── members.yml
-├── _drafts
-|   ├── begin-with-the-crazy-ideas.md
-|   └── on-simplicity-in-technology.md
-├── _includes
-|   ├── footer.html
-|   └── header.html
-├── _layouts
-|   ├── default.html
-|   └── post.html
-├── _posts
-|   ├── 2007-10-29-why-every-programmer-should-play-nethack.md
-|   └── 2009-04-26-barcamp-boston-4-roundup.md
-├── _sass
-|   ├── _base.scss
-|   └── _layout.scss
-├── _site
-├── .jekyll-metadata
-└── index.html # can also be an 'index.md' with valid YAML Frontmatter
-~~~
-
-## Front matter
-
-The front matter is where Jekyll starts to get really cool. Any file that contains a YAML front matter block will be processed by Jekyll as a special file. The front matter must be the first thing in the file and must take the form of valid YAML set between triple-dashed lines. Here is a basic example:
-
-~~~ html
----
-layout: post
-title: Blogging Like a Hacker
----
-~~~
-
-Between these triple-dashed lines, you can set predefined variables (see below for a reference) or even create custom ones of your own. These variables will then be available to you to access using Liquid tags both further down in the file and also in any layouts or includes that the page or post in question relies on.
-
-![Example image](https://images.unsplash.com/photo-1481487196290-c152efe083f5?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1920&h=1080&fit=crop&s=80308172730757a7db0434987fa985f3)
-
-## Where additional pages live
-
-Where you put HTML or Markdown files for pages depends on how you want the pages to work. There are two main ways of creating pages:
-
-* Place named HTML or Markdown files for each page in your site’s root folder.
-* Place pages inside folders and subfolders named whatever you want.
-
-Both methods work fine (and can be used in conjunction with each other), with the only real difference being the resulting URLs. By default, pages retain the same folder structure in `_site` as they do in the source directory.
+```
+Synth(\mysound, [\freq, 600]);
+```

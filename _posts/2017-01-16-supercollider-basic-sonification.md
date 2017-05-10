@@ -39,7 +39,6 @@ This will transform the columns into the string of numbers that we want.
 We now have the data set up correctly in our interface. We can now reference the data in each column by setting it to a variable. 
 
 ```
-////ballora totalice (area + volume)
 ~trigrates=~data.at(3).normalize(7, 25);
 ~attacks=~data.at(3).normalize(0.02, 0.2);
 ~spreads=~data.at(3).normalize(0.25, 1);
